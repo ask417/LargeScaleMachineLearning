@@ -1,0 +1,166 @@
+Anthonys-MacBook-Pro-2:.bash_sessions AnthonySpalvieriKruse$ slcli vs credentials 26389837
+:..........:..........:
+: username : password :
+:..........:..........:
+:   root   : LSq9Q9Nm :
+:..........:..........:
+Anthonys-MacBook-Pro-2:.bash_sessions AnthonySpalvieriKruse$ slcli vs list
+:..........:...............:................:...............:............:........:
+:    id    :    hostname   :   primary_ip   :   backend_ip  : datacenter : action :
+:..........:...............:................:...............:............:........:
+: 26389837 : elasticsearch : 158.85.217.62  : 10.122.75.198 :   sjc01    :   -    :
+: 26371607 :   lone.spark  : 158.85.217.51  : 10.122.75.197 :   sjc01    :   -    :
+: 24665915 :     master    : 23.246.222.245 :  10.91.138.93 :   sjc01    :   -    :
+: 26402125 :   nutchtest   : 158.85.217.54  : 10.122.75.201 :   sjc01    :   -    :
+: 24663199 :     slave1    : 198.11.210.70  :  10.91.138.99 :   sjc01    :   -    :
+: 24665931 :     slave2    : 23.246.222.242 : 10.91.138.107 :   sjc01    :   -    :
+: 24809695 :     spark1    : 23.246.222.247 : 10.91.138.117 :   sjc01    :   -    :
+: 24809699 :     spark2    : 23.246.222.248 :  10.91.138.71 :   sjc01    :   -    :
+: 24809703 :     spark3    : 198.11.210.69  :  10.91.138.72 :   sjc01    :   -    :
+:..........:...............:................:...............:............:........:
+Anthonys-MacBook-Pro-2:.bash_sessions AnthonySpalvieriKruse$ 
+
+curl -XGET 'localhost:9200/movies/_search?pretty' -d'
+{                                                                  
+  "query": {
+    "bool": {
+      "should": [                   
+        { "match": { "Plot": "dog" } },
+        { "match": { "Plot": "doctor" } }
+      ]                  
+    }               
+  }        
+}'
+
+curl -XGET 'localhost:9200/movies/_search?pretty' -d'
+{                                                                  
+  "query": {
+    "bool": {
+      "should": [                   
+        { "match": { "imdbRating": "8" } },
+        { "match": { "imdbRating": "9" } },
+        { "match": { "imdbRating": "7" } },
+        { "match": { "imdbRating": "8.5" } },
+        { "match": { "imdbRating": "9.5" } },
+        { "match": { "imdbRating": "8.1" } },
+        { "match": { "imdbRating": "9.1" } },
+        { "match": { "imdbRating": "7.1" } },
+        { "match": { "imdbRating": "8.1" } },
+        { "match": { "imdbRating": "9.1" } },
+        { "match": { "imdbRating": "8.2" } },
+        { "match": { "imdbRating": "9.2" } },
+        { "match": { "imdbRating": "7.2" } },
+        { "match": { "imdbRating": "8.2" } },
+        { "match": { "imdbRating": "9.2" } },
+        { "match": { "imdbRating": "8.3" } },
+        { "match": { "imdbRating": "9.3" } },
+        { "match": { "imdbRating": "7.3" } },
+        { "match": { "imdbRating": "8.3" } },
+        { "match": { "imdbRating": "9.3" } },
+        { "match": { "imdbRating": "8.4" } },
+        { "match": { "imdbRating": "9.4" } },
+        { "match": { "imdbRating": "7.4" } },
+        { "match": { "imdbRating": "8.4" } },
+        { "match": { "imdbRating": "9.4" } },
+        { "match": { "imdbRating": "8.6" } },
+        { "match": { "imdbRating": "9.6" } },
+        { "match": { "imdbRating": "7.6" } },
+        { "match": { "imdbRating": "8.6" } },
+        { "match": { "imdbRating": "9.6" } },
+        { "match": { "imdbRating": "8.7" } },
+        { "match": { "imdbRating": "9.7" } },
+        { "match": { "imdbRating": "7.7" } },
+        { "match": { "imdbRating": "8.7" } },
+        { "match": { "imdbRating": "9.7" } },
+	{ "match": { "imdbRating": "6.1" } },
+        { "match": { "imdbRating": "5.6" } },
+        { "match": { "imdbRating": "6.2" } },
+        { "match": { "imdbRating": "6.3" } },
+        { "match": { "imdbRating": "6.4" } },
+        { "match": { "imdbRating": "6.5" } },
+        { "match": { "imdbRating": "6.6" } },
+        { "match": { "imdbRating": "6.7" } },
+        { "match": { "imdbRating": "6.8" } },
+        { "match": { "imdbRating": "6.9" } }
+
+      ],
+       "must": [
+	{"match": {"Actors": "Sandler" }  } 
+      ]          
+    }               
+  }        
+}'
+
+curl -XGET 'localhost:9200/movies/_search?pretty' -d'
+{
+  "size": 0,
+  "aggs": {
+    "group_by_state": {
+      "terms": {
+        "field": "Rated"
+      }
+    }
+  }
+}'
+
+
+curl -XGET 'localhost:9200/movies/_search?pretty' -d'
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "must": [
+	{"match": {"Actors": "Sandler" }  }
+        ]
+      }
+    },
+  "aggs": {
+    "group_by_state": {
+      "terms": {
+        "field": "Year"
+      }
+    }
+  }
+}'
+
+curl -XGET 'localhost:9200/movies/_search?pretty' -d'
+{
+  "query": { "match_phrase": { "Plot": "true love" } }
+}'
+
+#Also fails, but would work if i knew how to convert strings to floats
+curl -XGET 'localhost:9200/movies/_search?pretty' -d'
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "must": [
+	{"match": {"Actors": "Sandler" }  }
+        ]
+      }
+    },
+  "aggs": {
+    "max_score": {
+      "max": {
+        "field": "imdbRating"
+      }
+    }
+  }
+}'
+
+
+#Fails 
+curl -XGET 'localhost:9200/movies/_search?pretty' -d'
+{
+  "size": 0,
+  "aggs": {
+    "group_by_state": {
+      "terms": {
+        "field": "Rated"
+      },"aggs": {"average_balance": {"avg": {"field": "Metascore"}}}
+    }
+  }
+}'
+
+
+

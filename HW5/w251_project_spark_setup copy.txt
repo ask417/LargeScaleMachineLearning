@@ -1,0 +1,149 @@
+# Set up the single node
+
+slcli vs create --datacenter sjc01 --hostname lone.spark --domain TwitterArchive1 --billing hourly --key SoftLayerStuff --cpu 2 --memory 4096 --disk 100 --disk 300 --network 1000 --os CENTOS_7_64
+
+slcli vs list
+
+slcli vs credentials <your node's id>
+
+
+
+# Use the single node after it is up and running
+
+ssh root@<ip from the previous step>
+
+yum install -y tmux
+yum install -y git
+
+vi /etc/hosts  <-- change the external IP address in the file to the internal IP address; for example, change from 158.85.173.10 to 10.122.37.146
+
+mkdir /data
+fdisk -l | grep Disk
+mkfs.ext4 <the Disk that is 300GB; mine is /dev/xvdc>
+
+echo "/dev/xvdc /data                   ext4    defaults,noatime        0 0" >> /etc/fstab
+mount /data
+chmod 1777 /data
+
+curl https://bintray.com/sbt/rpm/rpm | sudo tee /etc/yum.repos.d/bintray-sbt-rpm.repo
+yum install -y java-1.8.0-openjdk-headless sbt
+echo export JAVA_HOME=\"$(readlink -f $(which java) | grep -oP '.*(?=/bin)')\" >> /root/.bash_profile
+source /root/.bash_profile
+$JAVA_HOME/bin/java -version
+
+curl http://d3kbcqa49mib13.cloudfront.net/spark-1.6.1-bin-hadoop2.6.tgz | tar -zx -C /usr/local --show-transformed --transform='s,/*[^/]*,spark,'
+echo export SPARK_HOME=\"/usr/local/spark\" >> /root/.bash_profile
+source /root/.bash_profile
+
+echo "lone-spark" > $SPARK_HOME/conf/slaves
+$SPARK_HOME/sbin/start-master.sh
+$SPARK_HOME/sbin/start-slaves.sh    <-- you may be asked to enter the password for your node, so make sure you have the password handy.
+
+Q4585a4q
+
+mkdir /data/archive
+git clone https://github.com/bethieppart/251-final-project.git
+cd 251-final-project/
+git fetch
+git pull
+cd twitter_sparse_download/
+sbt package
+
+
+
+
+
+# Pick a date time range and start downloading
+
+#Latest 11/29 10:00 am 
+
+"username": "62ab11de-1839-42f9-adb0-d46dade99806",
+"password": "RXATU6aXFD",
+
+
+## Date time ranges to choose from:
+### I have downloaded the tweets from 2016-08-31 and onwards.  These are for you guys to take care of.
+### Inform others which ranges you will take care of so there are no overlap and wasted resources.
+
+start date time        end date time
+"2016-07-28T00:00:00Z" "2016-08-30T23:59:59Z"; Done
+
+"2016-07-11T00:00:00Z" "2016-07-27T23:59:59Z"; Done
+
+$SPARK_HOME/bin/spark-submit --class "TwitterSparseDownload" --master local[4] $(find target -iname "*.jar") "62ab11de-1839-42f9-adb0-d46dade99806" "RXATU6aXFD" "2016-07-11T00:00:00Z" "2016-07-27T23:59:59Z" "/data/archive"
+
+
+"2016-05-21T00:00:00Z" "2016-06-23T23:59:59Z”; Done
+
+"2016-05-05T00:00:00Z" "2016-05-20T23:59:59Z”; Not complete
+
+$SPARK_HOME/bin/spark-submit --class "TwitterSparseDownload" --master local[4] $(find target -iname "*.jar") "62ab11de-1839-42f9-adb0-d46dade99806" "RXATU6aXFD" "2016-05-05T13:40:00Z" "2016-05-20T23:59:59Z" "/data/archive"
+
+
+
+## Plug the chosen <start date time> and <end date time> into the following command:
+
+
+(Each job of fetching 34 days of tweets takes a few hours.  Mathematically it should take no more than 3 hours.  Nevertheless, you may want to do the spark-submit part from within either a screen session or a tmux session just so any possible network glitch, e.g., dropped connection, will not affect the job.  I use tmux.  This is what I did:
+
+  tmux new -s twitter_download
+  cd 251-final-project/twitter_sparse_download/
+  $SPARK_HOME/bin/spark-submit --class "TwitterSparseDownload" --master local[4] $(find target -iname "*.jar") "<my username from bluemix>" "<my password from bluemix>" "2016-10-04T00:00:00Z" "2016-11-06T23:59:59Z" "/data/archive"
+
+  Press "Control-b" and then "d" to detach after making sure the download process is running smoothly
+
+  To go back to check the progress:
+  tmux attach -t twitter_download
+)
+
+
+
+# Work with the saved files.  This is just a reference for whoever is going to write the script to analyze the data.
+
+## I experimented in spark-shell to make sure the files can be used directly and it is easy to tokenize the twitter messages.
+
+scala> val x = sc.textFile("/data/fs/project-node1/archive/file_20161109_1650")
+x: org.apache.spark.rdd.RDD[String] = /data/fs/project-node1/archive/file_20161109_1650 MapPartitionsRDD[1] at textFile at <console>:27
+
+scala> x.count()
+res1: Long = 40                                                                 
+
+scala> val z = x.map(a => a.length)
+z: org.apache.spark.rdd.RDD[Int] = MapPartitionsRDD[3] at map at <console>:29
+
+scala> z.collect()
+res7: Array[Int] = Array(1982576, 1996619, 2025473, 1922660, 1973709, 2027620, 1980518, 1948655, 1879963, 1959773, 2009453, 1907228, 1993963, 1921708, 1950675, 1948881, 1912499, 1919509, 1946190, 1924324, 1952022, 1968574, 1989188, 1941390, 1974795, 1977555, 2017905, 1958076, 1995226, 1965659, 2018135, 1963270, 2027869, 1985329, 2081780, 2001364, 1960623, 2001683, 1993564, 2006342)
+
+scala> z.count()
+res8: Long = 40
+
+scala> val y = x.take(1)(0)
+y: String = {"search":{"results":758,"current":500},"tweets":[{"cde":{"author":{"gender":"male","parenthood":{"isParent":"unknown","evidence":""},"location":{"country":"","city":"","state":""},"maritalStatus":{"isMarried":"unknown","evidence":""}},"content":{"sentiment":{"evidence":[{"polarity":"NEGATIVE","sentimentTerm":"rid"},{"polarity":"POSITIVE","sentimentTerm":"reduce emissions"},{"polarity":"NEGATIVE","sentimentTerm":"rid"},{"polarity":"NEGATIVE","sentimentTerm":"screwing"}],"polarity":"NEGATIVE"}}},"cdeInternal":{"tracks":[{"id":"2713720a-f341-4ca0-acd1-f8b1e6c0d00f"}]},"message":{"postedTime":"2016-11-09T16:50:13.000Z","verb":"post","link":"http://twitter.com/barlos_garcia/statuses/796394474209476609","generator":{"displayName":"Twitter for iPhone","link":"http://twitter.com/do...
+
+scala> class CC[T] { def unapply(a:Any):Option[T] = Some(a.asInstanceOf[T]) }
+defined class CC
+
+scala> object M extends CC[Map[String, Any]]
+defined module M
+
+scala> object L extends CC[List[Any]]
+defined module L
+
+scala> val results = for {
+     | Some(M(map)) <- List(scala.util.parsing.json.JSON.parseFull(y))
+     | L(tweets) = map("tweets")
+     | M(tweet) <- tweets
+     | M(message) = tweet("message")
+     | } yield {
+     | message("body").asInstanceOf[String]
+     | }
+results: List[String] =
+List(Now Trump wants to get rid of all regulations Obama fought for to reduce emissions and get rid of the EPA. That's screwing the planet over, RT @Randy_Gage: This election was decided by hate and fear.  More of that won't help us.  We need love and hope., RT @fentyy: #ElectionNight  and now we wait... https://t.co/YJHfq7oFmo, RT @RayaWasHere: What the results would be if only the millennial votes counted... This gives me hope. We are the future. And the future wi…, RT @HillaryClinton: “Last night I congratulated Donald Trump and offered to work with him on behalf of our country.” —Hillary, Election is over!  Come celebrate with our #dailyspecial.  Tofu and Vegetable Mole with Black Beans and Rice. #glutenfree #DairyFree, Creamfields and Indie yes please and t...
+
+scala> results(0)
+res10: String = Now Trump wants to get rid of all regulations Obama fought for to reduce emissions and get rid of the EPA. That's screwing the planet over
+
+scala> val results2 = results.map(r => r.split("""\s+""").map(s => s.replaceAll("[^\\p{L}\\p{Nd}]+", "")))
+results2: List[Array[String]] = List(Array(Now, Trump, wants, to, get, rid, of, all, regulations, Obama, fought, for, to, reduce, emissions, and, get, rid, of, the, EPA, Thats, screwing, the, planet, over), Array(RT, RandyGage, This, election, was, decided, by, hate, and, fear, More, of, that, wont, help, us, We, need, love, and, hope), Array(RT, fentyy, ElectionNight, and, now, we, wait, httpstcoYJHfq7oFmo), Array(RT, RayaWasHere, What, the, results, would, be, if, only, the, millennial, votes, counted, This, gives, me, hope, We, are, the, future, And, the, future, wi), Array(RT, HillaryClinton, Last, night, I, congratulated, Donald, Trump, and, offered, to, work, with, him, on, behalf, of, our, country, Hillary), Array(Election, is, over, Come, celebrate, with, our, dailyspecial, Tofu...
+
+

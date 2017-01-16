@@ -1,0 +1,110 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf0 \CocoaLigature0 :..........:..........:................:...............:............:........:\
+:    id    : hostname :   primary_ip   :   backend_ip  : datacenter : action :\
+:..........:..........:................:...............:............:........:\
+:												                           \
+: 24809695 :  spark1  : 23.246.222.247 : 10.91.138.117 :   sjc01    :   -    :\
+: 24809699 :  spark2  : 23.246.222.248 :  10.91.138.71 :   sjc01    :   -    :\
+: 24809703 :  spark3  : 198.11.210.69  :  10.91.138.72 :   sjc01    :   -    :\
+:..........:..........:................:...............:............:........:\
+
+\f0\fs24 \CocoaLigature1 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs22 \cf0 \CocoaLigature0 Anthonys-MBP-2:~ AnthonySpalvieriKruse$ slcli vs credentials 24809695\
+:..........:..........:\
+: username : password :\
+:..........:..........:\
+:   root   : Kpwyr3uA :\
+:..........:..........:\
+Anthonys-MBP-2:~ AnthonySpalvieriKruse$ slcli vs credentials 24809699\
+:..........:..........:\
+: username : password :\
+:..........:..........:\
+:   root   : BSkz8cgz :\
+:..........:..........:\
+Anthonys-MBP-2:~ AnthonySpalvieriKruse$ slcli vs credentials 24809703\
+:..........:..........:\
+: username : password :\
+:..........:..........:\
+:   root   : QA9vrfGu :\
+:..........:..........:\
+\
+\
+127.0.0.1 localhost.localdomain localhost\
+23.246.222.247 spark1.thefuture.net spark1\
+23.246.222.248 spark2.thefuture.net spark2\
+198.11.210.69 spark3.thefuture.net spark3\
+\
+\
+\
+\
+\
+\
+[root@spark1 ~]# $SPARK_HOME/bin/run-example SparkPi\
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties\
+16/10/09 17:48:09 INFO SparkContext: Running Spark version 1.6.1\
+16/10/09 17:48:10 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable\
+16/10/09 17:48:10 INFO SecurityManager: Changing view acls to: root\
+16/10/09 17:48:10 INFO SecurityManager: Changing modify acls to: root\
+16/10/09 17:48:10 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: Set(root); users with modify permissions: Set(root)\
+16/10/09 17:48:10 INFO Utils: Successfully started service 'sparkDriver' on port 42041.\
+16/10/09 17:48:11 INFO Slf4jLogger: Slf4jLogger started\
+16/10/09 17:48:11 INFO Remoting: Starting remoting\
+16/10/09 17:48:11 INFO Utils: Successfully started service 'sparkDriverActorSystem' on port 46166.\
+16/10/09 17:48:11 INFO Remoting: Remoting started; listening on addresses :[akka.tcp://sparkDriverActorSystem@23.246.222.247:46166]\
+16/10/09 17:48:11 INFO SparkEnv: Registering MapOutputTracker\
+16/10/09 17:48:11 INFO SparkEnv: Registering BlockManagerMaster\
+16/10/09 17:48:11 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-986cb548-898b-4e81-b66f-c2714710d6d2\
+16/10/09 17:48:11 INFO MemoryStore: MemoryStore started with capacity 511.1 MB\
+16/10/09 17:48:11 INFO SparkEnv: Registering OutputCommitCoordinator\
+16/10/09 17:48:11 INFO Utils: Successfully started service 'SparkUI' on port 4040.\
+16/10/09 17:48:11 INFO SparkUI: Started SparkUI at http://23.246.222.247:4040\
+16/10/09 17:48:11 INFO HttpFileServer: HTTP File server directory is /tmp/spark-96da927e-3a99-40e4-bd61-9e6ddc56411d/httpd-13f242a2-744d-43af-b4d5-0130017ea6ad\
+16/10/09 17:48:11 INFO HttpServer: Starting HTTP Server\
+16/10/09 17:48:11 INFO Utils: Successfully started service 'HTTP file server' on port 33736.\
+16/10/09 17:48:11 INFO SparkContext: Added JAR file:/usr/local/spark/lib/spark-examples-1.6.1-hadoop2.6.0.jar at http://23.246.222.247:33736/jars/spark-examples-1.6.1-hadoop2.6.0.jar with timestamp 1476053291884\
+16/10/09 17:48:11 INFO Executor: Starting executor ID driver on host localhost\
+16/10/09 17:48:11 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 43003.\
+16/10/09 17:48:11 INFO NettyBlockTransferService: Server created on 43003\
+16/10/09 17:48:11 INFO BlockManagerMaster: Trying to register BlockManager\
+16/10/09 17:48:11 INFO BlockManagerMasterEndpoint: Registering block manager localhost:43003 with 511.1 MB RAM, BlockManagerId(driver, localhost, 43003)\
+16/10/09 17:48:11 INFO BlockManagerMaster: Registered BlockManager\
+16/10/09 17:48:12 INFO SparkContext: Starting job: reduce at SparkPi.scala:36\
+16/10/09 17:48:12 INFO DAGScheduler: Got job 0 (reduce at SparkPi.scala:36) with 2 output partitions\
+16/10/09 17:48:12 INFO DAGScheduler: Final stage: ResultStage 0 (reduce at SparkPi.scala:36)\
+16/10/09 17:48:12 INFO DAGScheduler: Parents of final stage: List()\
+16/10/09 17:48:12 INFO DAGScheduler: Missing parents: List()\
+16/10/09 17:48:12 INFO DAGScheduler: Submitting ResultStage 0 (MapPartitionsRDD[1] at map at SparkPi.scala:32), which has no missing parents\
+16/10/09 17:48:12 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 1904.0 B, free 1904.0 B)\
+16/10/09 17:48:12 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 1218.0 B, free 3.0 KB)\
+16/10/09 17:48:12 INFO BlockManagerInfo: Added broadcast_0_piece0 in memory on localhost:43003 (size: 1218.0 B, free: 511.1 MB)\
+16/10/09 17:48:12 INFO SparkContext: Created broadcast 0 from broadcast at DAGScheduler.scala:1006\
+16/10/09 17:48:12 INFO DAGScheduler: Submitting 2 missing tasks from ResultStage 0 (MapPartitionsRDD[1] at map at SparkPi.scala:32)\
+16/10/09 17:48:12 INFO TaskSchedulerImpl: Adding task set 0.0 with 2 tasks\
+16/10/09 17:48:12 INFO TaskSetManager: Starting task 0.0 in stage 0.0 (TID 0, localhost, partition 0,PROCESS_LOCAL, 2157 bytes)\
+16/10/09 17:48:12 INFO TaskSetManager: Starting task 1.0 in stage 0.0 (TID 1, localhost, partition 1,PROCESS_LOCAL, 2157 bytes)\
+16/10/09 17:48:12 INFO Executor: Running task 0.0 in stage 0.0 (TID 0)\
+16/10/09 17:48:12 INFO Executor: Fetching http://23.246.222.247:33736/jars/spark-examples-1.6.1-hadoop2.6.0.jar with timestamp 1476053291884\
+16/10/09 17:48:12 INFO Executor: Running task 1.0 in stage 0.0 (TID 1)\
+16/10/09 17:48:12 INFO Utils: Fetching http://23.246.222.247:33736/jars/spark-examples-1.6.1-hadoop2.6.0.jar to /tmp/spark-96da927e-3a99-40e4-bd61-9e6ddc56411d/userFiles-8ae3913d-82b5-4a88-ba55-5ddb6ef8f1fd/fetchFileTemp1913258963679817702.tmp\
+16/10/09 17:48:13 INFO Executor: Adding file:/tmp/spark-96da927e-3a99-40e4-bd61-9e6ddc56411d/userFiles-8ae3913d-82b5-4a88-ba55-5ddb6ef8f1fd/spark-examples-1.6.1-hadoop2.6.0.jar to class loader\
+16/10/09 17:48:13 INFO Executor: Finished task 1.0 in stage 0.0 (TID 1). 1031 bytes result sent to driver\
+16/10/09 17:48:13 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 1031 bytes result sent to driver\
+16/10/09 17:48:13 INFO TaskSetManager: Finished task 0.0 in stage 0.0 (TID 0) in 669 ms on localhost (1/2)\
+16/10/09 17:48:13 INFO TaskSetManager: Finished task 1.0 in stage 0.0 (TID 1) in 643 ms on localhost (2/2)\
+16/10/09 17:48:13 INFO TaskSchedulerImpl: Removed TaskSet 0.0, whose tasks have all completed, from pool \
+16/10/09 17:48:13 INFO DAGScheduler: ResultStage 0 (reduce at SparkPi.scala:36) finished in 0.687 s\
+16/10/09 17:48:13 INFO DAGScheduler: Job 0 finished: reduce at SparkPi.scala:36, took 0.921492 s\
+Pi is roughly 3.13744\
+}

@@ -1,0 +1,21 @@
+The top 10000 pages are:
+"A"	2217
+"in"	1201
+"Child's"	1099
+"Christmas"	1099
+"Wales"	1099
+"of"	1011
+"Case"	604
+"Study"	604
+"Female"	447
+"Collection"	239
+"the"	124
+"Fairy"	123
+"Tales"	123
+"Forms"	116
+"Government"	102
+"Biography"	92
+"General"	92
+"George"	92
+"Circumstantial"	62
+"City"	62

@@ -1,0 +1,6 @@
+["atlas", "boon"]	0.25
+["atlas", "cava"]	1.0
+["atlas", "dipped"]	0.25
+["boon", "cava"]	0.25
+["boon", "dipped"]	0.5
+["cava", "dipped"]	0.25

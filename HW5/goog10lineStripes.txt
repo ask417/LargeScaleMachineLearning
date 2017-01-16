@@ -1,0 +1,28 @@
+"A"	{"Case": 604, "City": 62, "Circumstantial": 62, "Sea": 62, "FOR": 59, "Tales": 123, "Narrative": 62, "Forms": 116, "George": 92, "in": 1201, "Wales": 1099, "Fairy": 123, "ESTABLISHING": 59, "Christmas": 1099, "Limited": 55, "by": 62, "Childs": 1099, "Government": 102, "of": 895, "BILL": 59, "Collection": 239, "General": 92, "Female": 447, "the": 124, "RELIGIOUS": 59, "Study": 604, "Biography": 92}
+"BILL"	{"A": 59, "RELIGIOUS": 59, "FOR": 59, "ESTABLISHING": 59}
+"Biography"	{"A": 92, "of": 92, "George": 92, "General": 92}
+"Case"	{"A": 604, "Limited": 55, "Female": 447, "Government": 102, "of": 502, "Study": 604, "in": 102}
+"Childs"	{"A": 1099, "Wales": 1099, "Christmas": 1099, "in": 1099}
+"Christmas"	{"A": 1099, "Wales": 1099, "Childs": 1099, "in": 1099}
+"Circumstantial"	{"A": 62, "of": 62, "the": 62, "Narrative": 62}
+"City"	{"A": 62, "the": 62, "by": 62, "Sea": 62}
+"Collection"	{"A": 239, "of": 239, "Fairy": 123, "Tales": 123, "Forms": 116}
+"ESTABLISHING"	{"A": 59, "BILL": 59, "RELIGIOUS": 59, "FOR": 59}
+"FOR"	{"A": 59, "BILL": 59, "RELIGIOUS": 59, "ESTABLISHING": 59}
+"Fairy"	{"A": 123, "of": 123, "Tales": 123, "Collection": 123}
+"Female"	{"A": 447, "Case": 447, "Study": 447, "of": 447}
+"Forms"	{"A": 116, "of": 116, "Collection": 116}
+"General"	{"A": 92, "of": 92, "George": 92, "Biography": 92}
+"George"	{"A": 92, "of": 92, "Biography": 92, "General": 92}
+"Government"	{"A": 102, "Case": 102, "Study": 102, "in": 102}
+"Limited"	{"A": 55, "Case": 55, "Study": 55, "of": 55}
+"Narrative"	{"A": 62, "of": 62, "the": 62, "Circumstantial": 62}
+"RELIGIOUS"	{"A": 59, "BILL": 59, "FOR": 59, "ESTABLISHING": 59}
+"Sea"	{"A": 62, "City": 62, "the": 62, "by": 62}
+"Study"	{"A": 604, "Case": 604, "Limited": 55, "Female": 447, "Government": 102, "of": 502, "in": 102}
+"Tales"	{"A": 123, "of": 123, "Fairy": 123, "Collection": 123}
+"Wales"	{"A": 1099, "Childs": 1099, "Christmas": 1099, "in": 1099}
+"by"	{"A": 62, "City": 62, "the": 62, "Sea": 62}
+"in"	{"A": 1201, "Case": 102, "Childs": 1099, "Government": 102, "Wales": 1099, "Study": 102, "Christmas": 1099}
+"of"	{"A": 1011, "Case": 502, "Circumstantial": 62, "Limited": 55, "the": 62, "Tales": 123, "Collection": 355, "General": 92, "Forms": 232, "Female": 447, "Narrative": 62, "Study": 502, "Fairy": 123, "George": 92, "Biography": 92}
+"the"	{"A": 124, "City": 62, "Circumstantial": 62, "Sea": 62, "Narrative": 62, "of": 62, "by": 62}
